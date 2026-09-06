@@ -100,8 +100,5 @@ feature N`).
 | 6 | Custom exception handling, status codes | [GlobalExceptionHandler.java](back-end/src/main/java/com/workshop/library/exception/GlobalExceptionHandler.java) |
 
 ## Notes
-
-- No borrow/return or membership workflow — this is deliberately a plain Book CRUD app per the
-  assignment's "simplified back-end" guidance; business logic is out of scope for this assignment.
 - `spring.jpa.hibernate.ddl-auto=create-drop` recreates the schema on every restart. This is fine
   for a demo/assignment; a real deployment would use a migration tool (Flyway/Liquibase) instead.
