@@ -1,0 +1,59 @@
+<div class="p-6 max-w-4xl mx-auto">
+  <h1 class="text-2xl font-bold mb-4">Book Catalogue</h1>
+
+  <!-- Event binding + template reference variables for search / filter / sort controls -->
+  <div class="flex flex-wrap gap-3 mb-6">
+    <input
+      #keywordInput
+      type="text"
+      placeholder="Search title or author..."
+      class="border rounded px-3 py-2 flex-1 min-w-48"
+      (keyup.enter)="search(keywordInput.value)"
+    />
+    <button (click)="search(keywordInput.value)" class="bg-slate-800 text-white px-4 py-2 rounded">Search</button>
+
+    <select
+      class="border rounded px-3 py-2"
+      [value]="genre"
+      (change)="onGenreChange($any($event.target).value)"
+    >
+      <option value="">All genres</option>
+      <option value="Fiction">Fiction</option>
+      <option value="Fantasy">Fantasy</option>
+      <option value="Dystopian">Dystopian</option>
+      <option value="Technology">Technology</option>
+      <option value="Sci-Fi">Sci-Fi</option>
+    </select>
+
+    <select class="border rounded px-3 py-2" [value]="sortBy" (change)="onSortChange($any($event.target).value)">
+      <option value="id">Sort: Id</option>
+      <option value="title">Sort: Title</option>
+      <option value="publicationYear">Sort: Year</option>
+      <option value="copies">Sort: Copies</option>
+    </select>
+
+    <select class="border rounded px-3 py-2" [value]="order" (change)="onOrderChange($any($event.target).value)">
+      <option value="asc">Ascending</option>
+      <option value="desc">Descending</option>
+    </select>
+  </div>
+
+  <!-- Angular feature 6: @if / @else conditional rendering -->
+  @if (loading) {
+    <p class="text-slate-500">Loading books...</p>
+  } @else if (books.length === 0) {
+    <p class="text-slate-500">No books found.</p>
+  } @else {
+    <p class="text-sm text-slate-500 mb-3">{{ books.length }} book(s) found</p>
+
+    <!-- Angular feature 7: @for with $index, $count, $first loop contextual variables -->
+    <div class="grid gap-4 sm:grid-cols-2">
+      @for (book of books; track book.id; let i = $index; let count = $count; let first = $first) {
+        <div>
+          <p class="text-xs text-slate-400 mb-1">Item {{ i + 1 }} of {{ count }}</p>
+          <app-book-card [book]="book" [index]="i" [isFirst]="first" (deleteBook)="onDelete($event)" />
+        </div>
+      }
+    </div>
+  }
+</div>

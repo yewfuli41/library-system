@@ -1,0 +1,28 @@
+<div class="p-6 max-w-lg mx-auto">
+  @if (notFound) {
+    <p class="text-red-600">This book could not be found.</p>
+  } @else if (!book) {
+    <p class="text-slate-500">Loading...</p>
+  } @else {
+    <h1 class="text-2xl font-bold mb-2">{{ book.title }}</h1>
+    <p class="text-slate-600 mb-4">by {{ book.author }}</p>
+
+    <dl class="grid grid-cols-2 gap-y-2 text-sm mb-6">
+      <dt class="text-slate-500">ISBN</dt>
+      <dd>{{ book.isbn }}</dd>
+      <dt class="text-slate-500">Genre</dt>
+      <dd>{{ book.genre }}</dd>
+      <dt class="text-slate-500">Publication Year</dt>
+      <dd>{{ book.publicationYear }}</dd>
+      <dt class="text-slate-500">Copies</dt>
+      <!-- Angular feature 2: style binding sets a CSS property directly from component state -->
+      <dd [style.color]="book.copies === 0 ? 'red' : 'inherit'">{{ book.copies }}</dd>
+    </dl>
+
+    <div class="flex gap-3">
+      <button (click)="edit()" class="bg-slate-800 text-white px-4 py-2 rounded">Edit</button>
+      <button (click)="remove()" class="text-red-600 border border-red-600 px-4 py-2 rounded">Delete</button>
+      <button (click)="back()" class="px-4 py-2 rounded border">Back to list</button>
+    </div>
+  }
+</div>

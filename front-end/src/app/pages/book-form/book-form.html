@@ -1,0 +1,63 @@
+<div class="p-6 max-w-lg mx-auto">
+  <h1 class="text-2xl font-bold mb-4">{{ editId ? 'Edit Book' : 'Add Book' }}</h1>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
+    <div>
+      <label class="block text-sm font-medium mb-1">Title</label>
+      <input formControlName="title" class="border rounded px-3 py-2 w-full" />
+      <!-- Angular feature 9: validation error message, only shown once the field has been touched -->
+      @if (f.title.invalid && f.title.touched) {
+        <p class="text-red-600 text-sm mt-1">Title is required.</p>
+      }
+    </div>
+
+    <div>
+      <label class="block text-sm font-medium mb-1">Author</label>
+      <input formControlName="author" class="border rounded px-3 py-2 w-full" />
+      @if (f.author.invalid && f.author.touched) {
+        <p class="text-red-600 text-sm mt-1">Author is required.</p>
+      }
+    </div>
+
+    <div>
+      <label class="block text-sm font-medium mb-1">ISBN</label>
+      <input formControlName="isbn" class="border rounded px-3 py-2 w-full" />
+      @if (f.isbn.invalid && f.isbn.touched) {
+        <p class="text-red-600 text-sm mt-1">Enter a valid ISBN (digits and dashes only).</p>
+      }
+    </div>
+
+    <div>
+      <label class="block text-sm font-medium mb-1">Genre</label>
+      <input formControlName="genre" class="border rounded px-3 py-2 w-full" />
+      @if (f.genre.invalid && f.genre.touched) {
+        <p class="text-red-600 text-sm mt-1">Genre is required.</p>
+      }
+    </div>
+
+    <div class="flex gap-4">
+      <div class="flex-1">
+        <label class="block text-sm font-medium mb-1">Publication Year</label>
+        <input type="number" formControlName="publicationYear" class="border rounded px-3 py-2 w-full" />
+        @if (f.publicationYear.invalid && f.publicationYear.touched) {
+          <p class="text-red-600 text-sm mt-1">Enter a valid year.</p>
+        }
+      </div>
+
+      <div class="flex-1">
+        <label class="block text-sm font-medium mb-1">Copies</label>
+        <input type="number" formControlName="copies" class="border rounded px-3 py-2 w-full" />
+        @if (f.copies.invalid && f.copies.touched) {
+          <p class="text-red-600 text-sm mt-1">Copies cannot be negative.</p>
+        }
+      </div>
+    </div>
+
+    <div class="flex gap-3 mt-2">
+      <button type="submit" class="bg-slate-800 text-white px-4 py-2 rounded">
+        {{ editId ? 'Save Changes' : 'Create Book' }}
+      </button>
+      <button type="button" (click)="cancel()" class="px-4 py-2 rounded border">Cancel</button>
+    </div>
+  </form>
+</div>
